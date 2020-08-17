@@ -16,11 +16,8 @@ class Auth extends Component {
 
 
 
-    toggle  = () => {
-        this.setState({
-            newUser: !this.state.newUser
-        })
-    }
+    
+    
     render() {
         return (
           <div className='Auth'>

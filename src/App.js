@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './reset.css';
 
 // import Auth from './Components/Auth'
@@ -13,14 +13,25 @@ import routes from './Components/routes'
 
 
 
-function App() {
+class App extends Component() {
+  constructor(){
+    super()
+    this.state = {
+      newUser: false
+    }
+  }
+  
+  
+  
+  render(){
   return (
     <div className="App">
      
       <Nav/>
+      {!this.state.newUser} ?
       {routes}
     </div>
   );
 }
-
+}
 export default App;
