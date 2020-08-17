@@ -4,9 +4,11 @@ const app = express();
 const session = require('express-session'); 
 const massive = require('massive');
 const auth = require('./controller')
+const bodyParser  = require('body-parser');
 const {SERVER_PORT, SESSION_SECRET, CONNECTION_STRING} = process.env; 
 
 app.use(express.json()); 
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
     resave: false, 
     saveUninitialized: true, 

@@ -10,8 +10,6 @@ import Post from "./Post";
 export default(
 
 
-
-
 <Switch>
       <Route path='/' exact component={Auth}/>
       <Route path='/dashboard' component={Dashboard}/>

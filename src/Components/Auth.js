@@ -9,28 +9,43 @@ class Auth extends Component {
         super()
         this.state = {
             username: '', 
-            password: ''
+            password: '', 
+            newUser: false
         }
     }
-    render() { 
-        const {email, password} = this.state
+
+
+
+    toggle  = () => {
+        this.setState({
+            newUser: !this.state.newUser
+        })
+    }
+    render() {
         return (
-            <div className='Auth'>
-          
-                <img src={helo} alt="helo_logo"/>
-                <h1 className='helo_title'>Helo</h1>
-                
+          <div className='Auth'>
+            <div className='container'>
+              <img src={helo} alt='helo_logo' />
+              <h1 className='helo_title'>Helo</h1>
+              
+              <div className='auth_input_box'>
+            
+              <input name='email' type='text' value={this.state.username} placeholder='Email'/>
                
-               
-               <input name='email' type='text' value={email} placeholder='Email'/>
-               <input name='password' type='text' value={password} placeholder='Password'/>
-               
-               
-             
-               <button className="login-button" > Login</button>
-               <button className="register-button" > Register</button>
-               </div>
+              </div>
+              <div className='auth_input_box'>
+              <input name='password' type='text' value={this.state.password} placeholder='Password'/>
+              </div>
+              <div className='auth_button_container'>
+              <button className="login-button" > Login</button>
+              <button className="register-button" > Register</button>
+              </div>
+            </div>
+          </div>
+        );
+      }
+    }
 
 
 
-    
+    export default Auth

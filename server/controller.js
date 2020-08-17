@@ -1,9 +1,11 @@
 const bcrypt = require('bcrypt'); 
 
 module.exports = {
-    login: async (res, req, next ) => {
+    login: async (res, req ) => {
         const db = req.app.get('db')
+        console.log(req.body)
         const  {username, password} = req.body; 
+        console.log(req.body)
         const user = await db.check_user(username)
         if(!user[0]){
             return res.status(404).send('User does not exist')
@@ -11,8 +13,8 @@ module.exports = {
             const authenticated = bcrypt.compareSync(password, user[0].password)
             if(authenticated){
                 req.session.user = {
-                    userId: user[0].id,
-                    email: user[0].username
+                    id: user[0].id,
+                    username: user[0].username,
 
                 } 
                 res.status(200).send(req.session.user)
@@ -32,7 +34,7 @@ module.exports = {
             const hash = bcrypt.hashSync(password, salt); 
             const newUser = await db.create_user(username, hash, profile_pic)
             req.session.user = {
-                userId: newUser[0].id, 
+                id: newUser[0].id, 
                 username: newUser[0].username,
                 
             }
