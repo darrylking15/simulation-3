@@ -24,7 +24,7 @@ massive({
 }).catch(err => console.log(err))
 
 
-
+///endpoints
 
 
 app.listen(SERVER_PORT, () => console.log("Server Running On Port " + SERVER_PORT))
