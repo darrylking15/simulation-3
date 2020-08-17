@@ -14,16 +14,23 @@ class Auth extends Component {
     }
     render() { 
         const {email, password} = this.state
-        return (<div className='Auth'>
-                <div className= 'login_container'>
+        return (
+            <div className='Auth'>
+          
                 <img src={helo} alt="helo_logo"/>
-                <h1>Helo</h1>
-                </div>
+                <h1 className='helo_title'>Helo</h1>
+                
+               
+               
                <input name='email' type='text' value={email} placeholder='Email'/>
                <input name='password' type='text' value={password} placeholder='Password'/>
                
                
-               <div className="btn-container">
-               <button className='login_button' > Login </button>
-               <button className='register_button' > Register </button>
-              
+             
+               <button className="login-button" > Login</button>
+               <button className="register-button" > Register</button>
+               </div>
+
+
+
+    
