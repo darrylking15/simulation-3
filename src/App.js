@@ -8,14 +8,14 @@ import Nav from './Components/Nav'
 // import Post from './Components/Post'
 import './index.css'
 import routes from './Components/routes'
+import {withRouter} from 'react-router-dom'
 
 
 
 
-
-class App extends Component() {
-  constructor(){
-    super()
+class App extends Component {
+  constructor(props){
+    super(props)
     this.state = {
       newUser: false
     }
@@ -26,12 +26,10 @@ class App extends Component() {
   render(){
   return (
     <div className="App">
-     
       <Nav/>
-      {!this.state.newUser} ?
-      {routes}
+     {routes}
     </div>
   );
 }
 }
-export default App;
+export default withRouter(App);

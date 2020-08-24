@@ -30,7 +30,7 @@ massive({
 ///endpoints
 app.post('/auth/login', auth.login)
 app.post('/auth/register', auth.register)
-app.get('auth/logout', auth.logout)
+app.delete('auth/logout', auth.logout)
 app.get('/auth/user', auth.getUser)
 // app.get(/api/posts/:userid, )
 // app.get(/api/posts/:postid, )
