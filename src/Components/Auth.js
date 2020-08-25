@@ -12,62 +12,106 @@ class Auth extends Component {
         this.state = {
             username: '', 
             password: '', 
+            profile_pic: '', 
             newUser: false
         }
         this.login = this.login.bind(this)
         this.register = this.register.bind(this)
     }
 
-    handleChange(prop, val){
-      if(val.length < 20){
-        this.setState({
-          [prop] : val
-        })
-      }
+   handleChange(e){
+     this.setState({
+       [e.target.name]: e.target.value
+     })
+   }
+
+    toggle = () => {
+      this.setState({
+        newUser: !this.state.newUser
+      })
     }
 
-
-
-    login(){
-      axios.post('/api/auth/login', this.state)
+    login = () => {
+      const {username, password} = this.state
+      axios.post('/auth/login', {username, password})
       .then(res => {
-        this.props.updateUser(res.data)
+        
         this.props.history.push('/dashboard')
 
 
+      }).catch(err => {
+        console.log(err)
+        
       })
     }
     
 
-    register(){
-      axios.post('/api/auth/register', this.state)
+    register = () => {
+      const { username, password, profile_pic} = this.state
+      axios.post('/auth/register', {username, password, profile_pic})
       .then(res => {
-        this.props.updateUser(res.data); 
+        
         this.props.history.push('/dashboard')
+      }).catch(err => {
+        console.log(err)
+        
       })
     }
     
     render() {
-        return (
+        const {username, password, profile_pic} = this.state; 
+      return (
+          
+          
           <div className='Auth'>
             <div className='container'>
               <img src={helo} alt='helo_logo' />
               <h1 className='helo_title'>Helo</h1>
-              
-              <div className='auth_input_box'>
+             {!this.state.newUser ?
+             <div>
+             <div className='auth_input_box'>
+             <input onChange={e => this.handleChange(e)}  name='username' type='text' value={username} placeholder='Username'/>
+             <br/>
+             <input onChange={e => this.handleChange(e)}  name='password' type='password' value={password} placeholder='Password'/>
+             </div>
+             <div >
+
+               <button  onClick={this.login} className='login-button'>Login</button>
+               <button className='register-button' onClick={this.toggle}>Sign Up</button>
+             </div>
+             </div>
+             
+             :
+            <div className='auth_input_box'>
+             <input onChange={e => this.handleChange(e)}  name='username' type='text' value={username} placeholder='Username?'/>
+             <br/>
+             <input onChange={e => this.handleChange(e)}  name='password' type='password' value={password} placeholder='Password?'/>
+             
+             <br/>
+             <input onChange={e => this.handleChange(e)}  name='profile_pic' type='text' value={profile_pic} placeholder='Profile Pic?'/>
+             
+             <div className='auth_button_container'>
+
+               <button  onClick={this.register}  className='register-button'>Register</button>
+               <button className='login-button-2' onClick={this.toggle}>Sign In</button>
+             </div>
             
-              <input name='email' type='text' value={this.state.username} onChange={e => this.handleChange('username', e.target.value)} placeholder='Email'/>
-               
-              </div>
-              <div className='auth_input_box'>
-              <input name='password' onChange={e => this.handleChange('password', e.target.value)} type='text' value={this.state.password} placeholder='Password'/>
-              </div>
-              <div className='auth_button_container'>
-              <button className="login-button" onClick={this.login}> Login</button>
-              <button className="register-button" onClick={this.register}> Register</button>
-              </div>
+            
             </div>
+            
+            }
+              
+   
+           
+           
+           
+           
+           
+           
+           
+           </div>
           </div>
+          
         );
       }
     }
