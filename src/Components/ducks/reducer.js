@@ -4,8 +4,11 @@ import axios from 'axios';
 
 
 const initialState = {
-    user: {}, 
-    isLoggedIn: false
+    username: {}, 
+    isLoggedIn: false, 
+    id: 0, 
+    profile_pic: ''
+
 
 }
 
@@ -41,11 +44,15 @@ export function getUser(){
 export default function reducer(state = initialState , action){
     switch(action.type){
         case LOGIN_USER:
-            return {...state, user: action.payload, isLoggedIn: true}
+            return {...state, username: action.payload, isLoggedIn: true}
         case LOGOUT_USER:
             return {...state, ...action.payload}
         case GET_USER + '_PENDING':
-            return {}
+            return state
+        case GET_USER + '_FULFILLED':
+            return {...state,  username: action.payload.data,  isLoggedIn: true ,id: action.payload.data, profile_pic: action.payload.data}
+        case GET_USER + '_REJECTED':
+            return initialState
         default:
             return initialState
     }

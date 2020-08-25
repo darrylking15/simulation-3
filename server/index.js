@@ -30,6 +30,7 @@ app.post('/auth/login', auth.login)
 app.post('/auth/register', auth.register)
 app.delete('/auth/logout', auth.logout)
 app.get('/auth/user', auth.getUser)
+app.put('/auth/user/:id', auth.editUser)
 // app.get(/api/posts/:userid, )
 // app.get(/api/posts/:postid, )
 

@@ -3,9 +3,9 @@ const bcrypt = require('bcrypt');
 module.exports = {
     login: async (req, res ) => {
         const db = req.app.get('db')
-        console.log(req.body)
+        
         const  {username, password} = req.body; 
-        console.log(req.body)
+        
         const user = await db.check_user(username)
         if(!user[0]){
             return res.status(404).send('User does not exist')
@@ -55,6 +55,22 @@ module.exports = {
         }else {
             res.sendStatus(404)
         }
+    }, 
+    editUser: async (req, res) => {
+        const db = req.app.get('db');
+        const {username} = req.query; 
+        const {id} = req.params; 
+        
+        const changeUser = await db.change_user(username, id)
+        console.log(changeUser)
+        
+        
+        
+        
+        res.status(200).send(changeUser[0].username)
+        
+        
+        // console.log(changeUser)
     }
-
+    
 }
