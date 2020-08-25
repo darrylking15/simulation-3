@@ -1,40 +1,52 @@
+import axios from 'axios'; 
+
+
+
+
 const initialState = {
-    userName: '', 
-    profilePic: '', 
-    userId: 0 
+    user: {}, 
+    isLoggedIn: false
 
 }
 
-const UPDATE_USER = 'UPDATE_USER'; 
-const LOGOUT = 'LOGOUT'; 
-
-export default function (state = initialState, action){
-    let {type , payload} = action
-    switch(type){
-        case UPDATE_USER:
-            return {...state, userName: payload.username, profilePic: payload.profilePic, userId: payload.userId}
-            case LOGOUT:
-                return initialState 
-                default:
-                    return state
+const LOGIN_USER = 'LOGIN_USER'; 
+const LOGOUT_USER = 'LOGOUT_USER' ;
+const GET_USER = 'GET_USER'
 
 
-
-
-    
-    }
-}
-
-
-export function updateUser(user){
+export function loginUser(user){
     return {
-        type: UPDATE_USER, 
+        type: LOGIN_USER, 
         payload: user
     }
 }
 
-export function logout(){
+export function logOutUser(){
     return {
-        type: LOGOUT
+        type: LOGOUT_USER, 
+        payload: initialState
+    }
+}
+
+
+export function getUser(){
+  const user = axios.get('/auth/user')
+  return{
+       type: GET_USER, 
+       payload: user
+  }
+}
+
+
+export default function reducer(state = initialState , action){
+    switch(action.type){
+        case LOGIN_USER:
+            return {...state, user: action.payload, isLoggedIn: true}
+        case LOGOUT_USER:
+            return {...state, ...action.payload}
+        case GET_USER + '_PENDING':
+            return {}
+        default:
+            return initialState
     }
 }
