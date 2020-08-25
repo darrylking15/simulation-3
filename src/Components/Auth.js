@@ -73,5 +73,5 @@ class Auth extends Component {
     }
 
    
-
-    export default connect(null, {updateUser})(Auth)
+    export default Auth
+    // export default connect(null, {updateUser})(Auth)
